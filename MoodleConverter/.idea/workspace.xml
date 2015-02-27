@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="73d6a97e-fa21-4179-bcfc-07e8f4de1f37" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/markdown/MDParser.java" afterPath="$PROJECT_DIR$/src/markdown/MDParser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/converter/MoodleConverterExec.java" afterPath="$PROJECT_DIR$/src/converter/MoodleConverterExec.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/converter/MoodleXMLGenerator.java" afterPath="$PROJECT_DIR$/src/converter/MoodleXMLGenerator.java" />
+    <list default="true" id="73d6a97e-fa21-4179-bcfc-07e8f4de1f37" name="Default" comment="Bug fix">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/converter/Question.java" afterPath="$PROJECT_DIR$/src/converter/Question.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -71,27 +68,27 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Question.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Question.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/converter/Question.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="767" max-vertical-offset="1365">
-              <caret line="14" column="18" selection-start-line="14" selection-start-column="18" selection-end-line="14" selection-end-column="18" />
+            <state vertical-scroll-proportion="0.2826087" vertical-offset="56" max-vertical-offset="1365">
+              <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#663#664#0" expanded="true" />
-                <element signature="e#698#699#0" expanded="true" />
-                <element signature="e#819#820#0" expanded="true" />
-                <element signature="e#883#884#0" expanded="true" />
+                <element signature="e#701#702#0" expanded="true" />
+                <element signature="e#736#737#0" expanded="true" />
+                <element signature="e#857#858#0" expanded="true" />
+                <element signature="e#922#923#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MoodleConverterExec.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MoodleConverterExec.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/converter/MoodleConverterExec.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.82051283" vertical-offset="45" max-vertical-offset="660">
-              <caret line="35" column="33" selection-start-line="35" selection-start-column="33" selection-end-line="35" selection-end-column="33" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="45" max-vertical-offset="660">
+              <caret line="24" column="52" selection-start-line="24" selection-start-column="52" selection-end-line="24" selection-end-column="52" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -145,9 +142,9 @@
         <option value="$PROJECT_DIR$/src/md_tmp.md" />
         <option value="$PROJECT_DIR$/src/MoodleConverterExec.java" />
         <option value="$PROJECT_DIR$/src/converter/MoodleXMLGenerator.java" />
-        <option value="$PROJECT_DIR$/src/converter/Question.java" />
         <option value="$PROJECT_DIR$/src/markdown/MDParser.java" />
         <option value="$PROJECT_DIR$/src/converter/MoodleConverterExec.java" />
+        <option value="$PROJECT_DIR$/src/converter/Question.java" />
       </list>
     </option>
   </component>
@@ -515,7 +512,13 @@
       <option name="project" value="LOCAL" />
       <updated>1425067160358</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Bug fix">
+      <created>1425069308744</created>
+      <option name="number" value="00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1425069308744</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -567,7 +570,8 @@
     </option>
     <MESSAGE value="Implemented main generator functions" />
     <MESSAGE value="Implement MD parser" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implement MD parser" />
+    <MESSAGE value="Bug fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="Bug fix" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -648,20 +652,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/converter/Question.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1365">
-          <caret line="14" column="18" selection-start-line="14" selection-start-column="18" selection-end-line="14" selection-end-column="18" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#663#664#0" expanded="true" />
-            <element signature="e#698#699#0" expanded="true" />
-            <element signature="e#819#820#0" expanded="true" />
-            <element signature="e#883#884#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/markdown/MDParser.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1316" max-vertical-offset="1755">
@@ -677,10 +667,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/converter/MoodleConverterExec.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.82051283" vertical-offset="45" max-vertical-offset="660">
-          <caret line="35" column="33" selection-start-line="35" selection-start-column="33" selection-end-line="35" selection-end-column="33" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="45" max-vertical-offset="660">
+          <caret line="24" column="52" selection-start-line="24" selection-start-column="52" selection-end-line="24" selection-end-column="52" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/converter/Question.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2826087" vertical-offset="56" max-vertical-offset="1365">
+          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#701#702#0" expanded="true" />
+            <element signature="e#736#737#0" expanded="true" />
+            <element signature="e#857#858#0" expanded="true" />
+            <element signature="e#922#923#0" expanded="true" />
           </folding>
         </state>
       </provider>

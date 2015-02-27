@@ -6,24 +6,24 @@ import java.util.Locale;
 
 /**
  * Created by igor on 27.02.15.
+ *
  */
 public class Question {
     final private String textOfQuestion;
     final private List<Answer> answers;
-    private static int id=0;
-
-    // TODO Ошибка
+    final private int id;
+    private static int globalId =0;
 
     public Question(String textOfQuestion, List<Answer> answers) {
         this.textOfQuestion = textOfQuestion;
         this.answers = answers;
-        this.id++;
+        this.id = globalId++;
     }
 
     public Question(String textOfQuestion) {
         this.textOfQuestion = textOfQuestion;
         this.answers = new ArrayList<>();
-        this.id++;
+        this.id = globalId++;
     }
 
     public void addAnswer(Answer answer) {
@@ -37,7 +37,7 @@ public class Question {
     }
 
     public String getNameOfQuestion() {
-        return String.format(Locale.US,"question_%d",id);
+        return String.format(Locale.US,"question_%d", id);
     }
 
     public List<Answer> getAnswers() {
@@ -46,7 +46,7 @@ public class Question {
 
     public boolean isOneAnswerTrue() throws Exception {
         int count = countTrueAnswers();
-        return (count==1)?true:false;
+        return (count==1);
     }
 
     public int countTrueAnswers() throws Exception {
