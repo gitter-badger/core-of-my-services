@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by igor on 27.02.15.
@@ -19,20 +20,58 @@ public class Question {
     }
 
     public String getNameOfQuestion() {
-        return String.format("question_%d",id);
+        return String.format(Locale.US,"question_%d",id);
     }
 
     public List<Answer> getAnswers() {
         return answers;
     }
 
-    // TODO пока всегда возращает один ответ
-    public boolean isOneAnswerTrue() {
-        return true;
+    public boolean isOneAnswerTrue() throws Exception {
+        int count = countTrueAnswers();
+        return (count==1)?true:false;
     }
 
-    // TODO пока всегда возращает 100%
-    public float getPartOfTrueAnswer() {
-        return 100;
+    public int countTrueAnswers() throws Exception {
+        int count = 0;
+        for(Answer answer : answers) {
+            if(answer.isTrue()) {count++;}
+        }
+
+        if(count<1)
+            throw new Exception("В тесте не задано правильных ответов");
+
+        return count;
+    }
+
+    private static float[] trueBalls = {
+            5,
+            10,
+            11.11111f,
+            12.5f,
+            14.28571f,
+            16.66667f,
+            20,
+            25,
+            30,
+            33.33333f,
+            40,
+            50,
+            60,
+            66.66667f,
+            70,
+            75,
+            80,
+            83.33333f,
+            90,
+            100
+    };
+
+    public float getPartOfTrueAnswer() throws Exception {
+
+        if(this.isOneAnswerTrue()) {
+            return 100;
+        }
+        return 100f/countTrueAnswers();
     }
 }

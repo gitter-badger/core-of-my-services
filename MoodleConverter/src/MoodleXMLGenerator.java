@@ -21,7 +21,7 @@ public class MoodleXMLGenerator {
         questions.add(question);
     }
 
-    public String getMoodleXMLString() {
+    public String getMoodleXMLString() throws Exception {
         String result;
 
         StringBuilder body = new StringBuilder();

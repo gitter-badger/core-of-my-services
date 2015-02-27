@@ -1,3 +1,5 @@
+import java.util.Locale;
+
 /**
  * Created by igor on 27.02.15.
  */
@@ -19,10 +21,10 @@ public class XMLPaterns {
     }
 
     public static String getQuiz(String categoryName, String body) {
-        return String.format(quiz_pattern,categoryName,body);
+        return String.format(Locale.US,quiz_pattern,categoryName,body);
     }
 
-    public static String getQuestion(Question question) {
+    public static String getQuestion(Question question) throws Exception {
         String head = getHeaderQuestion(
                 question.getNameOfQuestion(),
                 question.getTextOfQuestion(),
@@ -33,7 +35,7 @@ public class XMLPaterns {
             body.append(getAnswer(answer,question.getPartOfTrueAnswer()));
         }
 
-        return String.format(question_pattern, head, body);
+        return String.format(Locale.US,question_pattern, head, body);
     }
 
     /**
@@ -43,7 +45,7 @@ public class XMLPaterns {
      * @return
      */
     private static String getAnswer(Answer answer, float fraction) {
-        return String.format(
+        return String.format(Locale.US,
                 answer_pattern,
                 // Если ответ правильный то вернуть вес ответа в процентах
                 (answer.isTrue())?fraction:0,
@@ -66,7 +68,7 @@ public class XMLPaterns {
 
 
     private static String getHeaderQuestion(String questionName, String questionText, boolean isSingle) {
-        return String.format(header_question_pattern,questionName,questionText,isSingle);
+        return String.format(Locale.US,header_question_pattern,questionName,questionText,isSingle);
     }
 
     final static String header_question_pattern =

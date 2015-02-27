@@ -7,7 +7,7 @@ import java.util.Collections;
  */
 public class MoodleConverterExec {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         MoodleXMLGenerator generator = new MoodleXMLGenerator("Test My Generator");
 
@@ -17,10 +17,15 @@ public class MoodleConverterExec {
 
         // Multi
         Answer[] answers2 = {new Answer("AA1", true),new Answer("AA2",false),new Answer("AA3",true)};
-        Question q2 = new Question("Who are you?", Arrays.asList(answers2));
+        Question q2 = new Question("What are you?", Arrays.asList(answers2));
+
+        // Three
+        Answer[] answers3 = {new Answer("AAA1", true),new Answer("AAA2",false),new Answer("AAA3",true),new Answer("AAA4",false),new Answer("AAA5",true)};
+        Question q3 = new Question("are you right?", Arrays.asList(answers3));
 
         generator.addQuestion(q1);
         generator.addQuestion(q2);
+        generator.addQuestion(q3);
 
         String xml = generator.getMoodleXMLString();
         System.out.println(xml);
