@@ -1,3 +1,6 @@
+package converter;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -14,6 +17,18 @@ public class Question {
         this.answers = answers;
         this.id++;
     }
+
+    public Question(String textOfQuestion) {
+        this.textOfQuestion = textOfQuestion;
+        this.answers = new ArrayList<>();
+        this.id++;
+    }
+
+    public void addAnswer(Answer answer) {
+        answers.add(answer);
+    }
+
+
 
     public String getTextOfQuestion() {
         return textOfQuestion;
@@ -44,34 +59,29 @@ public class Question {
         return count;
     }
 
-    private static float[] trueBalls = {
-            5,
-            10,
-            11.11111f,
-            12.5f,
-            14.28571f,
-            16.66667f,
-            20,
-            25,
-            30,
-            33.33333f,
-            40,
-            50,
-            60,
-            66.66667f,
-            70,
-            75,
-            80,
-            83.33333f,
-            90,
-            100
-    };
-
     public float getPartOfTrueAnswer() throws Exception {
 
         if(this.isOneAnswerTrue()) {
             return 100;
         }
         return 100f/countTrueAnswers();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(textOfQuestion);
+        sb.append("  [ ");
+        for (Answer answer: answers)  {
+            sb.append("{ ");
+            sb.append(answer.getTextOfAnswer());
+            sb.append(" : ");
+            sb.append(answer.isTrue());
+            sb.append(" };");
+        }
+
+        sb.append("  ] ");
+
+        return sb.toString();
     }
 }
