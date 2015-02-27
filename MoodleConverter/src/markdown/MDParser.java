@@ -90,7 +90,7 @@ public class MDParser {
 
     private Answer parseAnswer(String stringAnswer) {
         // Учет русских Ха и латинских Икс
-        Pattern p = Pattern.compile("\\[[xXхХ ]+\\]");
+        Pattern p = Pattern.compile("\\[[xXхХ]+\\]");
         Matcher m = p.matcher(stringAnswer);
         int count = 0;
         while (m.find())
@@ -99,7 +99,7 @@ public class MDParser {
         boolean isTrue = (count>0);
 
         // Разбить по ответу
-        String[] strings = stringAnswer.split("\\[[xXхХ]*\\]");
+        String[] strings = stringAnswer.split("\\[[xXхХ ]*\\]");
         Answer answer = null;
         if(strings.length>1) {
             answer = new Answer(strings[1].trim(),isTrue);

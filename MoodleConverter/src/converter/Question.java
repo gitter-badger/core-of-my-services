@@ -12,6 +12,8 @@ public class Question {
     final private List<Answer> answers;
     private static int id=0;
 
+    // TODO Ошибка
+
     public Question(String textOfQuestion, List<Answer> answers) {
         this.textOfQuestion = textOfQuestion;
         this.answers = answers;

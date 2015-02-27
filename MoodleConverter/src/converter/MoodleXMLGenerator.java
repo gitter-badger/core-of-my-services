@@ -13,7 +13,7 @@ import java.util.List;
 public class MoodleXMLGenerator {
 
     final private String categoryName;
-    final private List<Question> questions = new ArrayList<Question>();
+    private List<Question> questions = new ArrayList<Question>();
 
     public MoodleXMLGenerator(String categoryName) {
         this.categoryName = categoryName;
@@ -21,6 +21,10 @@ public class MoodleXMLGenerator {
 
     public void addQuestion(Question question) {
         questions.add(question);
+    }
+
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
     }
 
     public String getMoodleXMLString() throws Exception {
