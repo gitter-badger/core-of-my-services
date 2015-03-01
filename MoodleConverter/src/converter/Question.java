@@ -22,7 +22,7 @@ public class Question {
 
     public Question(String textOfQuestion) {
         this.textOfQuestion = textOfQuestion;
-        this.answers = new ArrayList<>();
+        this.answers = new ArrayList<Answer>();
         this.id = globalId++;
     }
 
@@ -67,6 +67,14 @@ public class Question {
             return 100;
         }
         return 100f/countTrueAnswers();
+    }
+
+    public float getPartOfFalseAnswer() throws Exception {
+
+        if(this.isOneAnswerTrue()) {
+            return -100;
+        }
+        return -100f/countTrueAnswers();
     }
 
     @Override

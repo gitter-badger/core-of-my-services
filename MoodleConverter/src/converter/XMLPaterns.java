@@ -34,7 +34,7 @@ public class XMLPaterns {
 
         StringBuilder body = new StringBuilder();
         for(Answer answer : question.getAnswers()) {
-            body.append(getAnswer(answer,question.getPartOfTrueAnswer()));
+            body.append(getAnswer(answer,question.getPartOfTrueAnswer(), question.getPartOfFalseAnswer()));
         }
 
         return String.format(Locale.US,question_pattern, head, body);
@@ -46,11 +46,11 @@ public class XMLPaterns {
      * @param fraction Какой процент имеет данный ответ (0 если ответ не верный)
      * @return
      */
-    private static String getAnswer(Answer answer, float fraction) {
+    private static String getAnswer(Answer answer, float fraction, float falsefraction) {
         return String.format(Locale.US,
                 answer_pattern,
                 // Если ответ правильный то вернуть вес ответа в процентах
-                (answer.isTrue())?fraction:0,
+                (answer.isTrue())?fraction:falsefraction,
                 answer.getTextOfAnswer());
     }
 

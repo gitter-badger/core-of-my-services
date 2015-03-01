@@ -16,7 +16,7 @@ public class MoodleConverterExec {
 
     public static void main(String[] args) throws Exception {
 
-        MDParser parser = new MDParser("/home/igor/Git/md_tmp.md");
+        MDParser parser = new MDParser("D:\\PSPTest.md");
         List<Question> questions =  parser.parse();
 
         converter.MoodleXMLGenerator generator = new converter.MoodleXMLGenerator("Test My Generator T3");
