@@ -25,10 +25,29 @@
 		<artifactId>javax.servlet-api</artifactId>
 		<version>3.1.0</version>
 	</dependency>
-    
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+        <version>4.1.6.RELEASE</version>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-webmvc</artifactId>
+        <version>4.1.6.RELEASE</version>
+    </dependency>
+    <dependency>
+	    <groupId>com.fasterxml.jackson.core</groupId>
+	    <artifactId>jackson-core</artifactId>
+	    <version>2.4.1</version>
+	</dependency>
+	<dependency>
+	    <groupId>com.fasterxml.jackson.core</groupId>
+	    <artifactId>jackson-databind</artifactId>
+	    <version>2.4.1.1</version>
+	</dependency>
   </dependencies>
   <build>
-    <finalName>coreservices</finalName>
+    <finalName>api</finalName> <!-- coreservices -->
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
