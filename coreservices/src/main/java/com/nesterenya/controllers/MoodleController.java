@@ -56,13 +56,14 @@ public class MoodleController {
 	}
 
 	@RequestMapping(value = "/result/{id}", method = RequestMethod.GET)
-	public void result(@PathVariable(value="id") String id, Writer responseWriter) {
-		
+	public void result(@PathVariable(value="id") String id, HttpServletResponse response) {
+		response.setContentType("text/xml");
+		response.setHeader("Content-disposition", "attachment; filename=" + "yourquestions.xml" );
 		
 		String xml = results.get(UUID.fromString(id));
 		
 		try {
-			responseWriter.append(xml);
+			response.getWriter().append(xml);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
