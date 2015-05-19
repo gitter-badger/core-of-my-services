@@ -2,4 +2,15 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	version="3.1">
 
+
+	<filter>
+        <filter-name>cors</filter-name>
+        <filter-class>com.nesterenya.components.SimpleCORSFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>cors</filter-name>
+        <url-pattern>/journey/places/all</url-pattern>
+    </filter-mapping>
+
 </web-app>
