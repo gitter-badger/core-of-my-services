@@ -12,12 +12,13 @@ import java.util.List;
 /**
  * Created by igor on 27.02.15.
  */
+//@edu.umd.cs.findbugs.annotations.SuppressFBWarnings({"DM_DEFAULT_ENCODING"})
 public class MoodleConverterExec {
 
     public static void main(String[] args) throws Exception {
 
         MDParser parser = new MDParser("D:\\PSPTest.md");
-        List<Question> questions =  parser.parse();
+        List<Question> questions = parser.parse();
 
         converter.MoodleXMLGenerator generator = new converter.MoodleXMLGenerator("Test My Generator T3");
         generator.setQuestions(questions);
