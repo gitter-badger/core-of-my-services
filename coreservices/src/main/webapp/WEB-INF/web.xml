@@ -10,7 +10,7 @@
 
     <filter-mapping>
         <filter-name>cors</filter-name>
-        <url-pattern>/journey/places/all</url-pattern>
+        <url-pattern>/journey/places/*</url-pattern>
     </filter-mapping>
     
     

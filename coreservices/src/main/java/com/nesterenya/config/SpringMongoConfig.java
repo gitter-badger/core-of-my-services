@@ -24,10 +24,8 @@ import com.nesterenya.Application;
 //@EnableMongoRepositories(basePackages="com.nesterenya.repository")
 //@ComponentScan(basePackageClasses = Application.class, includeFilters = @Filter(Controller.class), useDefaultFilters = false)
 
-
-
 @Configuration
-@EnableMongoRepositories
+//@EnableMongoRepositories
 @ComponentScan("com.nesterenya")
 public class SpringMongoConfig extends AbstractMongoConfiguration {
     
