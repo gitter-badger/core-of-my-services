@@ -29,6 +29,7 @@ import com.nesterenya.Application;
 @ComponentScan("com.nesterenya")
 public class SpringMongoConfig extends AbstractMongoConfiguration {
     
+	
 	//@Inject
   //  @Autowired
 //	Environment environment;

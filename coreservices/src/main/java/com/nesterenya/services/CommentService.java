@@ -8,22 +8,46 @@ import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 import org.mongodb.morphia.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.mongodb.BasicDBList;
 import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.UpdateOptions;
 import com.mongodb.client.result.UpdateResult;
+import com.nesterenya.config.MongoConnectionConfig;
 import com.nesterenya.modal.Castle;
 import com.nesterenya.modal.Comment;
 
 @Component
 public class CommentService {
-	final static MongoClient mongoClient = new MongoClient();
-	MongoDatabase commentsDB = mongoClient.getDatabase("blogdb");
+	
+	//@Autowired
+	//MongoConnectionConfig config;
+	//@Autowired
+	//MongoConnectionConfig config;
+	
+	
+	MongoClientURI uri;
+	MongoClient mongoClient;
+	
+	//MongoClient mongoClient = new MongoClient();
+	MongoDatabase commentsDB;
+	//MongoDatabase commentsDB = mongoClient.getDatabase("blogdb");
 
+	@Autowired
+	public CommentService(MongoConnectionConfig config) {
+		uri = new MongoClientURI(config.getConnectionURI());
+		mongoClient = new MongoClient(uri);
+		commentsDB = mongoClient.getDatabase(config.getDataBase());
+		
+		
+	}
+	
+	
 	public void push(String id, Comment comment) {
 		MongoCollection<Document> commentCollection = commentsDB
 				.getCollection("posts");
