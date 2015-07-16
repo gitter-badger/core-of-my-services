@@ -44,6 +44,7 @@ public class SpringMongoConfig extends AbstractMongoConfiguration {
     public Mongo mongo() throws Exception {
     	//System.out.println("sdf");
        // return new MongoClient("127.0.0.1");
+    	System.out.println("mongo bean");
     	return new MongoClient();
     }
     

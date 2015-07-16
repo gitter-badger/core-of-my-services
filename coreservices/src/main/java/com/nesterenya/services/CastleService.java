@@ -37,7 +37,7 @@ public class CastleService {
 		// create the Datastore connecting to the default port on the local host
 		final Datastore datastore = morphia.createDatastore(new MongoClient(), "journeydb");
 		datastore.ensureIndexes();
-				
+		
 		final Query<Castle> query = datastore.createQuery(Castle.class);
 		final List<Castle> castles = query.asList();
 		
