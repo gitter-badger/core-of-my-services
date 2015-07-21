@@ -1,6 +1,7 @@
 package com.nesterenya.controllers;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -31,11 +32,12 @@ public class BlogCommentController {
 	public List<Comment> result(@PathVariable(value="id") String id) {
 		// 55a68f793066cfbef2fd729a
 		List<Comment> comments = service.get(id);
-		comments.sort(new Comparator<Comment>() {
+		Collections.sort(comments,new Comparator<Comment>() {
 			public int compare(Comment o1, Comment o2) {
 				return -o1.getDate().compareTo(o2.getDate());
 			};
 		});
+		
 		
 		return comments;
 	}
