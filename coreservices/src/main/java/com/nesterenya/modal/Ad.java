@@ -10,17 +10,18 @@ public class Ad {
 	@Id
 	private String id;
 	private String address;
-	private int cost;
+	private String cost;
 	private Date date;
 	private int roomCount;
 	private String description;
 	private String contacts;
+	private String source;
 	
 	public Ad() {
 		this.id = ObjectId.get().toHexString();
 	}	
 	
-	public Ad(String address, int cost, Date date, int roomCount,
+	public Ad(String address, String cost, Date date, int roomCount,
 			String description, String contacts) {
 		super();
 		this.id = ObjectId.get().toHexString();
@@ -46,10 +47,10 @@ public class Ad {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public int getCost() {
+	public String getCost() {
 		return cost;
 	}
-	public void setCost(int cost) {
+	public void setCost(String cost) {
 		this.cost = cost;
 	}
 	public Date getDate() {
@@ -75,6 +76,14 @@ public class Ad {
 	}
 	public void setContacts(String contacts) {
 		this.contacts = contacts;
+	}
+
+	public String getSource() {
+		return source;
+	}
+
+	public void setSource(String source) {
+		this.source = source;
 	}
 	
 }

@@ -22,4 +22,11 @@ public class RentHousesController {
 		
 		return service.getAll();
 	}
+	
+	
+	@RequestMapping(value = "/test_parsed", method = RequestMethod.GET)
+	public List<Ad> parsed() {
+		
+		return service.getTestParsedData();
+	}
 }
