@@ -13,6 +13,7 @@
         <url-pattern>/journey/places/*</url-pattern>
         <url-pattern>/blog/comments/*</url-pattern>
         <url-pattern>/ads/rent/*</url-pattern>
+        <url-pattern>/wish/*</url-pattern>
     </filter-mapping>
     
     
