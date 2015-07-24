@@ -1,6 +1,8 @@
 package com.nesterenya.services;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -51,6 +53,47 @@ public class RentService {
 	public List<Ad> getTestParsedData() {
 		Parser parser = new HatubyParserService();
 		return parser.parse();
+	}
+	
+	final int DEFAULT_CARD_OF_PAGE = 5;
+	public int getCountPages(int cardOnPage) {
+		if(cardOnPage<=0)
+			cardOnPage = DEFAULT_CARD_OF_PAGE;
+		
+		Parser parser = new HatubyParserService();
+		return (int) Math.ceil((double)parser.parse().size()/cardOnPage);
+	}
+	
+	
+	public List<Ad> getPage(int pageNumber, int cardOnPage) {
+		// TODO warning
+		if(cardOnPage<=0)
+			cardOnPage = DEFAULT_CARD_OF_PAGE;
+		Parser parser = new HatubyParserService();
+		
+		List<Ad> ads = parser.parse();
+		Collections.sort(ads, new Comparator<Ad>() {
+			@Override
+			public int compare(Ad o1, Ad o2) {
+				if(o1.getDate()!=null)
+					return -o1.getDate().compareTo(o2.getDate());
+				else 
+					return 0;
+			}
+		});
+		
+		List<Ad> pageList = new ArrayList<Ad>();
+		
+		int first = (pageNumber-1)*cardOnPage;
+		
+		if(first<0)
+			first = 0;
+		
+		for(int i = first; i < first+cardOnPage&&i<ads.size(); i++) {
+			pageList.add(ads.get(i));
+		}
+		
+		return pageList;
 	}
 	
 }
