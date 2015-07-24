@@ -15,12 +15,16 @@ import com.nesterenya.modal.Ad;
 
 public class HatubyParserService implements Parser {
 
+	private static List<Ad> cachedAds;
+	
 	@Override
 	public List<Ad> parse() {
 
-		List<Ad> ads = new ArrayList<>();
-
+		if(cachedAds!=null)
+			return cachedAds;
+		
 		try {
+			List<Ad> ads = new ArrayList<>();
 			for (int i = 0; i < 3; i++) {
 
 				String url = "http://www.hatu.by/ad/search/minsk/" + i + "/list.do";
@@ -32,7 +36,6 @@ public class HatubyParserService implements Parser {
 						"dd.MM.yyyy");
 
 				for (Element e : elements) {
-
 					Ad ad = new Ad();
 					Element a = e.getElementsByTag("h2").first()
 							.getElementsByTag("a").first();
@@ -62,6 +65,9 @@ public class HatubyParserService implements Parser {
 					ads.add(ad);
 
 					ad.setSource("http://www.hatu.by/");
+					
+					// cache
+					cachedAds = ads;
 				}
 			}
 
@@ -71,7 +77,7 @@ public class HatubyParserService implements Parser {
 			e.printStackTrace();
 		}
 
-		return ads;
+		return cachedAds;
 	}
 
 }
