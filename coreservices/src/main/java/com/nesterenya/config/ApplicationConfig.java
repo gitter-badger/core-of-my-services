@@ -8,6 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import com.nesterenya.Application;
 
@@ -19,8 +20,17 @@ class ApplicationConfig {
 	public static PropertyPlaceholderConfigurer propertyPlaceholderConfigurer() {
 		PropertyPlaceholderConfigurer ppc = new PropertyPlaceholderConfigurer();
 		ppc.setLocation(new ClassPathResource("/mongodb_nocommit.properties"));
+			
 		//ppc.setLocation(new ClassPathResource("/mongodb.properties"));
 		return ppc;
+	}
+	
+	@Bean(name = "multipartResolver")
+	public static CommonsMultipartResolver commonsMultipartResolver(){
+	    CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+	    multipartResolver.setDefaultEncoding("utf-8");
+	    multipartResolver.setMaxUploadSize(2*1024*1024);
+	    return multipartResolver;
 	}
 	
 }

@@ -14,16 +14,33 @@
         <url-pattern>/blog/comments/*</url-pattern>
         <url-pattern>/ads/rent/*</url-pattern>
         <url-pattern>/wish/*</url-pattern>
+        <url-pattern>/upload/*</url-pattern>
     </filter-mapping>
     
+    <!-- Uncomment to Enable Spring XML configuration
     
+    <listener>
+	    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+	 -->
     
-    <!-- 
+    <!-- <servlet>
+        <servlet-name>SpringController</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>/WEB-INF/dispatcher-servlet.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet> -->
+     
+    <!--  beans -->
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>/WEB-INF/dispatcher-servlet.xml</param-value>
     </context-param>
-  -->
+  
      
 
 </web-app>
