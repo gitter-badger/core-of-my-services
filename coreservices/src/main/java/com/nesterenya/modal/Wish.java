@@ -1,5 +1,7 @@
 package com.nesterenya.modal;
 
+import java.util.Date;
+
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 
@@ -10,14 +12,17 @@ public class Wish {
 	private String id;
 	private String text;
 	private int likes;
+	private Date date;
 	
 	public Wish() {
-		
+		this.setLikes(0);
+		this.setDate( new Date() );
 	}
 	
 	public Wish(String text) {
 		this.setText(text);
 		this.setLikes(0);
+		this.setDate( new Date() );
 	}
 
 	public String getText() {
@@ -42,5 +47,13 @@ public class Wish {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
 }

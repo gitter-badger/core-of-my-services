@@ -45,7 +45,7 @@ public class WishService {
 	}
 	
 	public List<Wish> getAll() {
-		Query<Wish> query = storage.createQuery(Wish.class);
+		Query<Wish> query = storage.createQuery(Wish.class).order(("-date"));
 		List<Wish> wishes = query.asList();
 		return wishes;
 	}
