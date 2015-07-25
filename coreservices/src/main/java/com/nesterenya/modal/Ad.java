@@ -1,6 +1,8 @@
 package com.nesterenya.modal;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
@@ -16,6 +18,11 @@ public class Ad {
 	private String description;
 	private String contacts;
 	private String source;
+	private List<String> images;
+	
+	{
+		images = new ArrayList<String>();
+	}
 	
 	public Ad() {
 		this.id = ObjectId.get().toHexString();
@@ -84,6 +91,14 @@ public class Ad {
 
 	public void setSource(String source) {
 		this.source = source;
+	}
+
+	public List<String> getImages() {
+		return images;
+	}
+
+	public void setImages(List<String> images) {
+		this.images = images;
 	}
 	
 }

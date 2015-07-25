@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import org.jsoup.nodes.*;
 import org.jsoup.select.Elements;
@@ -25,6 +27,9 @@ public class HatubyParserService implements Parser {
 		
 		try {
 			List<Ad> ads = new ArrayList<>();
+			
+			Random r = new Random();
+			
 			for (int i = 0; i < 3; i++) {
 
 				String url = "http://www.hatu.by/ad/search/minsk/" + i + "/list.do";
@@ -65,6 +70,23 @@ public class HatubyParserService implements Parser {
 					ads.add(ad);
 
 					ad.setSource("http://www.hatu.by/");
+					
+					
+					// TODO warning this is images for test UI generated random 
+					switch(r.nextInt(4)) {
+						case 0:
+							break;
+							
+						case 1:
+							ad.setImages(Arrays.asList("55b3634e8025742ac0d88"+r.nextInt(999)));
+							break;
+						case 2:
+							ad.setImages(Arrays.asList("55b3634e8025742ac0d88"+r.nextInt(999),"55b3634e8025742ac0d88"+r.nextInt(999)));
+							break;
+						case 3:
+							ad.setImages(Arrays.asList("55b3634e8025742ac0d88"+r.nextInt(999),"55b3634e8025742ac0d88"+r.nextInt(999),"55b3634e8025742ac0d88"+r.nextInt(999)));
+							break;
+					}
 					
 					// cache
 					cachedAds = ads;
