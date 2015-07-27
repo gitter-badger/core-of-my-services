@@ -22,9 +22,5 @@ public class MongoConnectionConfig {
 	
 	public String getDataBase() {
 		return database;
-	}
-	
-	
-	
-	
+	}	
 }

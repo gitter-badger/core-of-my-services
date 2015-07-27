@@ -16,9 +16,6 @@ import com.nesterenya.components.SimpleCORSFilter;
 public class WebAppInitializer extends
 		AbstractAnnotationConfigDispatcherServletInitializer {
 
-	
-	
-
 	@Override
 	protected String[] getServletMappings() {
 		return new String[] { "/" };

@@ -19,8 +19,7 @@ class ApplicationConfig {
 	@Bean
 	public static PropertyPlaceholderConfigurer propertyPlaceholderConfigurer() {
 		PropertyPlaceholderConfigurer ppc = new PropertyPlaceholderConfigurer();
-		ppc.setLocation(new ClassPathResource("/mongodb_nocommit.properties"));
-			
+		ppc.setLocation(new ClassPathResource("/mongodb_nocommit.properties"));	
 		//ppc.setLocation(new ClassPathResource("/mongodb.properties"));
 		return ppc;
 	}
@@ -32,5 +31,4 @@ class ApplicationConfig {
 	    multipartResolver.setMaxUploadSize(2*1024*1024);
 	    return multipartResolver;
 	}
-	
 }

@@ -19,6 +19,7 @@ public class Ad {
 	private String contacts;
 	private String source;
 	private List<String> images;
+	private int views;
 	
 	{
 		images = new ArrayList<String>();
@@ -99,6 +100,14 @@ public class Ad {
 
 	public void setImages(List<String> images) {
 		this.images = images;
+	}
+
+	public int getViews() {
+		return views;
+	}
+
+	public void setViews(int views) {
+		this.views = views;
 	}
 	
 }

@@ -87,6 +87,7 @@ public class HatubyParserService implements Parser {
 							ad.setImages(Arrays.asList("55b3634e8025742ac0d88"+r.nextInt(999),"55b3634e8025742ac0d88"+r.nextInt(999),"55b3634e8025742ac0d88"+r.nextInt(999)));
 							break;
 					}
+					ad.setViews(r.nextInt(1000));
 					
 					// cache
 					cachedAds = ads;

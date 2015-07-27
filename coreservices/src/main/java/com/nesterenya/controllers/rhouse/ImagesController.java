@@ -18,6 +18,8 @@ import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 
 import org.bson.types.ObjectId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.http.MediaType;
@@ -34,12 +36,16 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/images/")
 public class ImagesController {
 
+	//private static final Logger logger = Logger.getLogger(ImagesController.class);
+	private Logger log = LoggerFactory.getLogger(ImagesController.class); 
+	
 	@Resource
     private Environment env;
 	
 	@ResponseBody
 	@RequestMapping(value="/test/{id}", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
 	public byte[] testphoto(@PathVariable(value="id") String id) throws IOException {
+		log.error("TEST LOGGER !!!!!!!!!");
 		return getRandomImage(id);
 	}
 	
@@ -55,14 +61,14 @@ public class ImagesController {
 	
 	private byte[] getRandomImage(String id) throws IOException {
 		Random r = new Random();
-		BufferedImage im2 = new BufferedImage(400,200, BufferedImage.TYPE_3BYTE_BGR);
+		BufferedImage im2 = new BufferedImage(400,150, BufferedImage.TYPE_3BYTE_BGR);
         Graphics g = im2.getGraphics();
         g.setColor(new Color(r.nextInt(255),r.nextInt(255),r.nextInt(255)));
         g.fillRect(0,0,400,200);
         g.setColor(new Color(r.nextInt(255), r.nextInt(255), r.nextInt(255)));
         g.setFont(new Font("Arial",Font.BOLD,20));
         
-        g.drawString("Image not found: "+id,20,100);
+        g.drawString("Image not found: "+id,0,75);
         
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         ImageIO.write( im2,"png",os);
