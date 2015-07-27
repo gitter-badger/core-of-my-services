@@ -12,16 +12,19 @@ public class Wish {
 	private String id;
 	private String text;
 	private int likes;
+	private int dislikes;
 	private Date date;
 	
 	public Wish() {
 		this.setLikes(0);
+		this.setDislikes(0);
 		this.setDate( new Date() );
 	}
 	
 	public Wish(String text) {
 		this.setText(text);
 		this.setLikes(0);
+		this.setDislikes(0);
 		this.setDate( new Date() );
 	}
 
@@ -55,5 +58,13 @@ public class Wish {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	public int getDislikes() {
+		return dislikes;
+	}
+
+	public void setDislikes(int dislikes) {
+		this.dislikes = dislikes;
 	}
 }

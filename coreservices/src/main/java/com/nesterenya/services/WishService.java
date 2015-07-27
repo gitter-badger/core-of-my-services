@@ -65,7 +65,7 @@ public class WishService {
 	
 	public void dislike(String id) {
 		ObjectId oid = new ObjectId(id);
-		UpdateOperations<Wish> ops = storage.createUpdateOperations(Wish.class).inc("likes",-1);
+		UpdateOperations<Wish> ops = storage.createUpdateOperations(Wish.class).inc("dislikes",1);
 		Query<Wish> updateQuery = storage.createQuery(Wish.class).field("_id").equal(oid);
 		storage.update(updateQuery, ops);
 	}
