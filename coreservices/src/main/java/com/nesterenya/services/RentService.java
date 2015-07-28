@@ -7,12 +7,17 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import com.nesterenya.controllers.rhouse.ImagesController;
 import com.nesterenya.modal.Ad;
 
 @Component
 public class RentService {
+	
+	private Logger log = LoggerFactory.getLogger(RentService.class); 
 	
 	private List<Ad> testAds = new ArrayList<>();
 	
@@ -49,9 +54,13 @@ public class RentService {
 		testAds.add(ad2);
 	}
 	
+	public List<Ad> getTestSet() {
+		return testAds;
+	}
 	
 	public List<Ad> getAll() {
-		return testAds;
+		Parser parser = new HatubyParserService();
+		return parser.parse();
 	}
 	
 	public List<Ad> getTestParsedData() {
@@ -68,6 +77,17 @@ public class RentService {
 		return (int) Math.ceil((double)parser.parse().size()/cardOnPage);
 	}
 	
+	public Ad get(String id) {
+		log.info("get: "+id);
+		Parser parser = new HatubyParserService();
+		List<Ad> ads = parser.parse();
+		for(Ad ad : ads) {
+			if(ad.getId().equals(id)) {
+				return ad;
+			}
+		}
+		return null;
+	}
 	
 	public List<Ad> getPage(int pageNumber, int cardOnPage) {
 		// TODO warning

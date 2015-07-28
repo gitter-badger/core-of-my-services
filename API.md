@@ -5,8 +5,11 @@
 логика работы с этим API проста, при добавлении записи сохраняешь изображения (перед тем как сохранить запись), и получаешь для каждого изображения ID - который сохраняешь для каждой заметки, а потом для отображения обращаешься к изображению по этому ID например ```http://services.nesterenya.com/images/get/55b3634e8025742ac0d88ec5```
 
 * Method GET: ```http://services.nesterenya.com/images/upload``` - просто говорит что нужно использовать POST запрос
+
 * Method POST: ```http://services.nesterenya.com/images/upload``` - нужно послать файл, в случае ошибки вернет текст, если изображение сохранилось, вернет id изображения ```55b3625a8025742ac0d88ec4``` id нужен для последующего доступа к изображениям   (file upload, как делать с помощью angular тут написано http://stackoverflow.com/questions/13963022/angularjs-how-to-implement-a-simple-file-upload-with-multipart-form) простейший пример загрузки ```http://services.nesterenya.com/upload.html```
+
 * Method GET: ```http://services.nesterenya.com/images/get/{id}``` - вернуть изображение по ID (если изображения нету, то сгенерируется случайное изображение)  - например ```http://services.nesterenya.com/images/get/55b3634e8025742ac0d88ec5``` 
+
 * Method GET: ```http://services.nesterenya.com/images/test/{id}``` - вернуть случайное изображение с ID (Для отладки)  - например ```http://services.nesterenya.com/images/test/55b3634e8025742ac0d88ec5``` 
 
 ###RentController - управление заметками
@@ -15,7 +18,7 @@
 
 * Method GET: ```http://services.nesterenya.com/ads/rent/test_parsed```- распарсит сайт и вернет последних 10 заметок (пока их никуда не сохраняет, поэтому работает не быстро)
 
-* *new*
+* Method GET: ```http://services.nesterenya.com/ads/one/{id}``` - вернуть одну заметку по id
 
 * Method GET ```http://services.nesterenya.com/ads/rent/count/{количество карточек на странице}``` - вернет количество страниц с объявлениями
 
