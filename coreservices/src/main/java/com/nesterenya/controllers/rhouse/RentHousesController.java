@@ -43,7 +43,7 @@ public class RentHousesController {
 	@RequestMapping(value = "/one/{id}", method = RequestMethod.GET)
 	public Ad one(@PathVariable(value="id") String id) {
 		Ad ad = service.get(id);
-		log.info("find obj: "+ ad);
+		//log.info("find obj: "+ ad);
 		return ad;
 	}
 	

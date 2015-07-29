@@ -21,6 +21,8 @@ public class RentService {
 	
 	private List<Ad> testAds = new ArrayList<>();
 	
+	Parser parser = new GohomeParser();
+	
 	{
 		Ad ad1 = new Ad();
 		ad1.setAddress("Минск, Платонова, 33");
@@ -59,12 +61,10 @@ public class RentService {
 	}
 	
 	public List<Ad> getAll() {
-		Parser parser = new HatubyParserService();
 		return parser.parse();
 	}
 	
 	public List<Ad> getTestParsedData() {
-		Parser parser = new HatubyParserService();
 		return parser.parse();
 	}
 	
@@ -73,13 +73,10 @@ public class RentService {
 		if(cardOnPage<=0)
 			cardOnPage = DEFAULT_CARD_OF_PAGE;
 		
-		Parser parser = new HatubyParserService();
 		return (int) Math.ceil((double)parser.parse().size()/cardOnPage);
 	}
 	
 	public Ad get(String id) {
-		log.info("get: "+id);
-		Parser parser = new HatubyParserService();
 		List<Ad> ads = parser.parse();
 		for(Ad ad : ads) {
 			if(ad.getId().equals(id)) {
@@ -93,7 +90,6 @@ public class RentService {
 		// TODO warning
 		if(cardOnPage<=0)
 			cardOnPage = DEFAULT_CARD_OF_PAGE;
-		Parser parser = new HatubyParserService();
 		
 		List<Ad> ads = parser.parse();
 		Collections.sort(ads, new Comparator<Ad>() {
