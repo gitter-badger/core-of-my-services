@@ -59,7 +59,8 @@ public class Wish {
 	@JsonIgnore
 	public String getIdHex() {return  id.toHexString(); }
 
-	public void setId(String id) {
+	@JsonIgnore
+	public void setIdHex(String id) {
 		this.id = new ObjectId(id);
 	}
 
