@@ -1,0 +1,7 @@
+language: java
+-Dmaven.javadoc.skip=true
+mvn install -DskipTests=true
+mvn test
+
+jdk:
+  - oraclejdk7
