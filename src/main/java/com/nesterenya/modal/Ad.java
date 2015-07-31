@@ -4,13 +4,20 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.nesterenya.helpers.ObjectIdDeserializer;
+import com.nesterenya.helpers.ObjectIdSerializer;
 import org.bson.types.ObjectId;
-import org.springframework.data.annotation.Id;
+import org.mongodb.morphia.annotations.Id;
 
 public class Ad {
-	
+
+	@JsonDeserialize(using = ObjectIdDeserializer.class)
+	@JsonSerialize(using = ObjectIdSerializer.class)
 	@Id
-	private String id;
+	private ObjectId id;
 	private String address;
 	private String cost;
 	private Date date;
@@ -26,13 +33,13 @@ public class Ad {
 	}
 	
 	public Ad() {
-		this.id = ObjectId.get().toHexString();
+		this.id = ObjectId.get();
 	}	
 	
 	public Ad(String address, String cost, Date date, int roomCount,
 			String description, String contacts) {
 		super();
-		this.id = ObjectId.get().toHexString();
+		this.id = ObjectId.get();
 		this.address = address;
 		this.cost = cost;
 		this.date = date;
@@ -41,14 +48,18 @@ public class Ad {
 		this.contacts = contacts;
 	}
 	
-	public String getId() {
+	public ObjectId getId() {
 		return id;
 	}
 
+	@JsonIgnore
+	public String getIdHex( ) {return id.toHexString(); }
+
 	public void setId(String id) {
-		this.id = id;
+		this.id = new ObjectId(id);
 	}
-	
+	public void setId(ObjectId id) {this.id = id;}
+
 	public String getAddress() {
 		return address;
 	}

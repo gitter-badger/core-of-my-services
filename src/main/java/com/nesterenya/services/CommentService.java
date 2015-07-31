@@ -24,45 +24,26 @@ import com.nesterenya.modal.Comment;
 
 @Component
 public class CommentService {
-	
-	//@Autowired
-	//MongoConnectionConfig config;
-	//@Autowired
-	//MongoConnectionConfig config;
-	
-	
-	MongoClientURI uri;
-	MongoClient mongoClient;
-	
-	//MongoClient mongoClient = new MongoClient();
+
 	MongoDatabase commentsDB;
-	//MongoDatabase commentsDB = mongoClient.getDatabase("blogdb");
 
 	@Autowired
 	public CommentService(MongoConnectionConfig config) {
-		uri = new MongoClientURI(config.getConnectionURI());
-		mongoClient = new MongoClient(uri);
+		MongoClientURI uri = new MongoClientURI(config.getConnectionURI());
+		MongoClient mongoClient = new MongoClient(uri);
 		commentsDB = mongoClient.getDatabase(config.getDataBase());
-		
-		
 	}
-	
-	
+
 	public void push(String id, Comment comment) {
 		MongoCollection<Document> commentCollection = commentsDB
 				.getCollection("posts");
 		
-		//http://localhost:8080/api/blog/comments/add/55a6c0b8c9d11d263046182d
 		Document document = new Document();
 		document.put("user", comment.getUser());
 		document.put("text", comment.getText());
 		document.put("date", comment.getDate());
-		//if (email != null && !email.equals("")) {
-        //    comment.append("email", email);
-        //}
-		// WriteResult result =
-		
-       commentCollection.updateOne(new Document("_id", new ObjectId(id) ),
+
+       	commentCollection.updateOne(new Document("_id", new ObjectId(id) ),
                 new Document("$push", new Document("comments", document)), new UpdateOptions().upsert(false));
 	}
 
@@ -84,7 +65,6 @@ public class CommentService {
 		MongoCollection<Document> commentCollection = commentsDB
 				.getCollection("posts");
 		List<Comment> comments = new ArrayList<Comment>();
-		// 55a68f793066cfbef2fd729a
 		Document query = new Document();
 		query.put("_id", new ObjectId(id));
 

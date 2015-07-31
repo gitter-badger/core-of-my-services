@@ -79,7 +79,7 @@ public class RentService {
 	public Ad get(String id) {
 		List<Ad> ads = parser.parse();
 		for(Ad ad : ads) {
-			if(ad.getId().equals(id)) {
+			if(ad.getIdHex().equals(id)) {
 				return ad;
 			}
 		}
