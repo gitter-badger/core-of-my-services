@@ -1,6 +1,5 @@
 language: java
--Dmaven.javadoc.skip=true
-mvn install -DskipTests=true
+mvn install -Dmaven.javadoc.skip=true -DskipTests=true
 mvn test
 
 jdk:
