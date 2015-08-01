@@ -17,24 +17,14 @@ import com.nesterenya.modal.Wish;
 
 @Component
 public class WishService {
-	
-	MongoClientURI uri;
-	MongoClient mongoClient;
-	Datastore storage;
-	
+
 	@Autowired
-	public WishService(MongoConnectionConfig config) {
-		uri = new MongoClientURI(config.getConnectionURI());
-		mongoClient = new MongoClient(uri);
-		//commentsDB = mongoClient.getDatabase(config.getDataBase());
-		Morphia morphia = new Morphia();
-		
-		// tell Morphia where to find your classes
-		// can be called multiple times with different packages or classes
-		morphia.mapPackage("org.mongodb.morphia.example");
-		
-		storage = morphia.createDatastore(mongoClient, config.getDataBase());
-		storage.ensureIndexes();
+	Datastore storage;
+
+	public WishService() {}
+
+	public WishService(Datastore storage) {
+		this.storage = storage;
 	}
 	
 	public Wish add(Wish wish) {
