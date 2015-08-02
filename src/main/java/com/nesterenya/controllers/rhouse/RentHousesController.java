@@ -1,21 +1,19 @@
 package com.nesterenya.controllers.rhouse;
 
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.nesterenya.modal.Ad;
 import com.nesterenya.modal.Wish;
 import com.nesterenya.services.RentService;
 
 @RestController
-@RequestMapping("/ads/rent")
+@RequestMapping(value={"/ads/rent", "/rent"})
 public class RentHousesController {
 	private Logger log = LoggerFactory.getLogger(RentHousesController.class); 
 	
@@ -27,11 +25,35 @@ public class RentHousesController {
 		return service.getAll();
 	}
 	
-	
 	@RequestMapping(value = "/test_parsed", method = RequestMethod.GET)
 	public List<Ad> parsed() {
-		
 		return service.getTestParsedData();
+	}
+
+	//@ExceptionHandler(UnknownMatchException.class)
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	public Ad add(@RequestBody Ad ad) {
+
+		log.error(ad.toString());
+
+		if(ad.getAddress()==null||ad.getAddress().trim().length()==0) {
+			log.error("address");
+			throw new UnknownMatchException("Empty Address");
+		}
+		if(ad.getDescription()==null||ad.getDescription().trim().length()==0) {
+			log.error("Description");
+			throw new UnknownMatchException("Empty Description");
+		}
+		if(ad.getContacts()==null||ad.getContacts().trim().length()==0) {
+			log.error("Contacts");
+			throw new UnknownMatchException("Empty Contacts");
+		}
+
+		ad.setDate(new Date());
+		ad.setViews(0);
+		ad.getContacts();
+
+		return service.add(ad);
 	}
 	
 	// TODO возможно следует сделать чтобы все методы API возвращали JSON
