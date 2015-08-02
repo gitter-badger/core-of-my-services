@@ -11,17 +11,27 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import com.nesterenya.controllers.rhouse.ImagesController;
 import com.nesterenya.modal.Ad;
 
 @Component
 public class RentService {
 	
-	private Logger log = LoggerFactory.getLogger(RentService.class); 
-	
+	private Logger log = LoggerFactory.getLogger(RentService.class);
+
+	// TODO remove
+	private List<Ad> getAllAds() {
+		/*List<Ad> ads = new ArrayList<>();
+		List<Ad> parsed = parser.parse();
+		ads.addAll(parsed);
+		ads.addAll(TempStorage.ads);*/
+
+
+		return TempStorage.ads;
+	}
+
 	private List<Ad> testAds = new ArrayList<>();
 	
-	Parser parser = new GohomeParser();
+	//Parser parser = new GohomeParser();
 
 	{
 		Ad ad1 = new Ad();
@@ -56,19 +66,13 @@ public class RentService {
 		testAds.add(ad2);
 	}
 
-	public List<Ad> getTestSet() {
-		return testAds;
-	}
-	
 	public List<Ad> getAll() {
-		List<Ad> ads = parser.parse();
-		// TODO remove
-		ads.addAll(TempStorage.ads);
+		List<Ad> ads = getAllAds();
 		return ads;
 	}
 	
 	public List<Ad> getTestParsedData() {
-		return parser.parse();
+		return testAds;//parser.parse();
 	}
 	
 	final int DEFAULT_CARD_OF_PAGE = 5;
@@ -76,16 +80,13 @@ public class RentService {
 		if(cardOnPage<=0)
 			cardOnPage = DEFAULT_CARD_OF_PAGE;
 
-		// TODO remove
-		double fullSize = parser.parse().size() + TempStorage.ads.size();
+		double fullSize = getAllAds().size();
 
 		return (int) Math.ceil(fullSize/cardOnPage);
 	}
 	
 	public Ad get(String id) {
-		List<Ad> ads = parser.parse();
-		// TODO remove
-		ads.addAll(TempStorage.ads);
+		List<Ad> ads = getAllAds();
 
 		for(Ad ad : ads) {
 			if(ad.getIdHex().equals(id)) {
@@ -99,10 +100,8 @@ public class RentService {
 		// TODO warning
 		if(cardOnPage<=0)
 			cardOnPage = DEFAULT_CARD_OF_PAGE;
-		
-		List<Ad> ads = parser.parse();
-		// TODO remove
-		ads.addAll(TempStorage.ads);
+
+		List<Ad> ads = getAllAds();
 
 		Collections.sort(ads, new Comparator<Ad>() {
 			@Override

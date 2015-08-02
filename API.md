@@ -14,7 +14,7 @@
 
 ###RentController - управление заметками
 
-* Method POST: ```  ``` - добавить запись, минимальный объект ```json {"description":"bla bla bla!!!!", "address":"gomel", "contacts": "+485789476"} ``` (это обязательные поля). Можно добавить следующие поля при отправки: ```json {"address":"gomel ","cost":"190$","roomCount":2,"description":"bla bla","contacts":"+375 (29) 561-77","images": ["55be461b9f5f3023847a9d0a","55be461b9f5f3023847a9d0b"]} ```
+* Method POST: ``` http://services.nesterenya.com/rent/add ``` - добавить запись, минимальный объект ```json {"description":"bla bla bla!!!!", "address":"gomel", "contacts": "+485789476"} ``` (это обязательные поля). Можно добавить следующие поля при отправки: ```json {"address":"gomel ","cost":"190$","roomCount":2,"description":"bla bla","contacts":"+375 (29) 561-77","images": ["55be461b9f5f3023847a9d0a","55be461b9f5f3023847a9d0b"]} ```
 
 * Method GET: ```http://services.nesterenya.com/ads/rent/all``` - вернет тестовый набор из трех заметок
 

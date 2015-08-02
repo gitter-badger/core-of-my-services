@@ -16,6 +16,7 @@
         <url-pattern>/wish/*</url-pattern>
         <url-pattern>/upload/*</url-pattern>
         <url-pattern>/links/*</url-pattern>
+        <url-pattern>/rent/*</url-pattern>
     </filter-mapping>
     
     <!-- Uncomment to Enable Spring XML configuration

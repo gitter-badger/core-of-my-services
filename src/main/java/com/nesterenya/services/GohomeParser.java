@@ -20,18 +20,18 @@ import com.nesterenya.modal.Ad;
 
 public class GohomeParser implements Parser {
 	private Logger log = LoggerFactory.getLogger(GohomeParser.class); 
-	final static String BASE_URL = "http://gohome.by";
+	final public static String BASE_URL = "http://gohome.by";
 	final static String SEARCH_URL = "http://gohome.by/rent/flat/gomel";
 	
 	
 	ImageService imageService =new ImageService();
 	
-	private static List<Ad> cachedAds;
+	//private static List<Ad> cachedAds;
 	
 	@Override
 	public List<Ad> parse() {
-		if(cachedAds!=null&&cachedAds.size()!=0)
-			return cachedAds;
+		//if(cachedAds!=null&&cachedAds.size()!=0)
+		//	return cachedAds;
 		
 		List<Ad> ads = new ArrayList<Ad>();
 		try {
@@ -58,15 +58,16 @@ public class GohomeParser implements Parser {
 	           }
 	        }
 		
-	        if(ads.size()!=0) 
-	        	cachedAds= ads;
+	        //if(ads.size()!=0)
+	        //	cachedAds= ads;
 	        
 		} catch( Exception e) {
 			log.error("Gohome connect error: ",e);
 		}
 		
 		
-		return cachedAds;
+//		return cachedAds;
+		return ads;
 	}
 	
 	
