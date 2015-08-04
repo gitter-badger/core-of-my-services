@@ -1,4 +1,4 @@
-package com.nesterenya.services;
+package com.nesterenya.parsers;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+import com.nesterenya.parsers.Parser;
 import org.jsoup.nodes.*;
 import org.jsoup.select.Elements;
 import org.jsoup.*;
@@ -17,17 +18,12 @@ import com.nesterenya.modal.Ad;
 
 public class HatubyParserService implements Parser {
 
-	private static List<Ad> cachedAds;
-	
 	@Override
-	public List<Ad> parse() {
+	public ParsedResult parse() {
 
-		if(cachedAds!=null)
-			return cachedAds;
-		
+		ParsedResult result = new ParsedResult();
+
 		try {
-			List<Ad> ads = new ArrayList<>();
-			
 			Random r = new Random();
 			
 			for (int i = 0; i < 3; i++) {
@@ -67,7 +63,7 @@ public class HatubyParserService implements Parser {
 					String contact = e.getElementsByClass("psevdo").get(1)
 							.text();
 					ad.setContacts(contact);
-					ads.add(ad);
+					result.getAds().add(ad);
 
 					ad.setSource("http://www.hatu.by/");
 					
@@ -88,19 +84,15 @@ public class HatubyParserService implements Parser {
 							break;
 					}
 					ad.setViews(r.nextInt(1000));
-					
-					// cache
-					cachedAds = ads;
+
 				}
 			}
 
-		} catch (IOException ex) {
+		} catch (IOException | ParseException ex) {
 			ex.printStackTrace();
-		} catch (ParseException e) {
-			e.printStackTrace();
 		}
 
-		return cachedAds;
+		return result;
 	}
 
 }

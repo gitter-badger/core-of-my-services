@@ -1,5 +1,6 @@
-package com.nesterenya.services;
+package com.nesterenya.parsers;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.ParseException;
@@ -8,13 +9,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.nesterenya.services.ImageService;
+import org.bson.types.ObjectId;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.nesterenya.modal.Ad;
 
@@ -24,19 +26,18 @@ public class GohomeParser implements Parser {
 	final static String SEARCH_URL = "http://gohome.by/rent/flat/gomel";
 	
 	
-	ImageService imageService =new ImageService();
-	
+	//ImageService imageService =new ImageService();
 	//private static List<Ad> cachedAds;
 	
 	@Override
-	public List<Ad> parse() {
+	public ParsedResult parse() {
 		//if(cachedAds!=null&&cachedAds.size()!=0)
 		//	return cachedAds;
 		
-		List<Ad> ads = new ArrayList<Ad>();
+		ParsedResult result = new ParsedResult();
 		try {
 			
-			Document document = Jsoup.connect("http://gohome.by/rent/flat/gomel").get();
+			Document document = Jsoup.connect(SEARCH_URL).get();
 
 	        Element items = document.getElementById("list_items");
 	        Elements rows = items.getElementsByClass("head");
@@ -51,9 +52,11 @@ public class GohomeParser implements Parser {
 	        
 	        for(String link: links) {
 	           try {
-	        	Ad ad = parseAd(Jsoup.connect(BASE_URL+link).get());
-	            ads.add(ad);
-	           } catch(Exception e) {
+	        	Ad ad = parseAd(Jsoup.connect(BASE_URL+link).get(), result);
+
+				result.getAds().add(ad);
+
+			   } catch(Exception e) {
 	        	   log.error("Gohome parse ad: "+ link,e);
 	           }
 	        }
@@ -67,11 +70,11 @@ public class GohomeParser implements Parser {
 		
 		
 //		return cachedAds;
-		return ads;
+		return result;
 	}
 	
 	
-	 private  Ad parseAd(Document adDoc) throws ParseException {
+	 private  Ad parseAd(Document adDoc, ParsedResult result) throws ParseException, IOException {
 
 	        //Element content = adDoc.getElementById("content");
 	        Element adElement = adDoc.getElementById("new_ad");
@@ -86,10 +89,14 @@ public class GohomeParser implements Parser {
 	        Element imagesBlock = adElement.getElementsByClass("block_images").first();
 	        if(imagesBlock!=null) {
 	            List<String> imgLinks = parseImageLinks(imagesBlock);
-	            List<String> idImages = new ArrayList<String>();
+	            List<String> idImages = new ArrayList<>();
 	            for(String link : imgLinks) {
 	            	try {
-						idImages.add( imageService.save( new URL(BASE_URL+link) ));
+
+						String newId = ObjectId.get().toHexString();
+						result.getImages().put(newId, ImageService.imageToBytes(new URL(BASE_URL+link)) );
+
+						idImages.add( newId );
 					} catch (MalformedURLException e) {
 						log.error("Image parse +" + link, e);
 					}
@@ -134,8 +141,7 @@ public class GohomeParser implements Parser {
 
 	    private  String parseDescription(Element block) {
 	        Elements trs = block.getElementsByTag("tr");
-	        String description = trs.get(0).getElementsByTag("td").get(1).text();
-	        return  description;
+			return trs.get(0).getElementsByTag("td").get(1).text();
 	    }
 
 	    private  String parseAddress(Element block) {
@@ -154,8 +160,7 @@ public class GohomeParser implements Parser {
 
 	    private  String parseCost(Element block) {
 	        Elements trs = block.getElementsByTag("tr");
-	        String cost = trs.get(3).getElementsByTag("td").get(1).text();
-	        return cost;
+			return trs.get(3).getElementsByTag("td").get(1).text();
 	    }
 
 	    private  List<String> parseImageLinks(Element imagesBlock) {
@@ -171,7 +176,7 @@ public class GohomeParser implements Parser {
 
 	    private  int parseViews(Elements bb) {
 
-	        int views = 0;
+	        int views;
 	        try {
 	            if(bb.size()==3) {
 	                views = Integer.parseInt(bb.get(2).text());

@@ -1,17 +1,17 @@
 package com.nesterenya.scheduling;
 
+import java.awt.*;
 import java.text.SimpleDateFormat;
-import java.util.Comparator;
-import java.util.Date;
+import java.util.*;
 import java.util.List;
-import java.util.TreeSet;
 
 import com.nesterenya.modal.Ad;
-import com.nesterenya.services.GohomeParser;
+import com.nesterenya.parsers.GohomeParser;
+import com.nesterenya.parsers.ParsedResult;
+import com.nesterenya.services.ImageService;
 import com.nesterenya.services.TempStorage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.slf4j.helpers.BasicMarker;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -27,7 +27,7 @@ public class RunParser {
         System.out.println("The time is now " + dateFormat.format(new Date()));
     }
 
-    @Scheduled(initialDelay=5000, fixedRate=1000*3600)
+    @Scheduled(initialDelay=5000, fixedRate=1000*60*5)
     public void parseDataFrom() {
 
         log.info("Parsing start at : " + dateFormat.format(new Date()));
@@ -45,12 +45,22 @@ public class RunParser {
             }
         }
 
+        ImageService imageService = new ImageService();
         GohomeParser gohomeParser = new GohomeParser();
-        List<Ad> parsedAds = gohomeParser.parse();
 
-        for(Ad ad: parsedAds) {
+        ParsedResult result = gohomeParser.parse();
+
+        for(Ad ad: result.getAds()) {
             if( ads.add(ad) ) {
                 log.info("Add new record with address: : " + ad.getAddress());
+                //save images {
+                List<String> idInStorage = new ArrayList<>();
+                for(String idImage : ad.getImages()) {
+                    String newId = imageService.save(result.getImages().get(idImage));
+                    idInStorage.add(newId);
+                }
+
+                ad.setImages(idInStorage);
                 TempStorage.ads.add(ad);
             }
         }

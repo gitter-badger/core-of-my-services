@@ -127,6 +127,12 @@ public class RentService {
 		return pageList;
 	}
 
+	public void addView(String id) {
+
+
+
+	}
+
 	public Ad add(Ad ad) {
 		// TODO remove
 		TempStorage.ads.add(ad);

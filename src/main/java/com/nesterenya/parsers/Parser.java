@@ -1,9 +1,9 @@
-package com.nesterenya.services;
+package com.nesterenya.parsers;
 
 import java.util.List;
 
 import com.nesterenya.modal.Ad;
 
 public interface Parser {
-	List<Ad> parse();
+	ParsedResult parse();
 }

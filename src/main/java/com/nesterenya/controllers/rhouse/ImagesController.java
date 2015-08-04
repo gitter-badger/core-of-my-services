@@ -15,6 +15,15 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.nesterenya.services.ImageService;
 
+/**
+ * Изображения хранятся в БД
+ * из-за этого мы явно теряем по скорости, но выигрываем по гибкости,
+ * при переносе не нужно думать о файлах
+ *
+ * Рассмотреть 2 возможные ситуации:
+ * если скорости не будет хватать, хранение изображений узкое место, и нужно либо кешировать
+ * либо хранить изображения по другому
+ */
 @RestController
 @PropertySource("classpath:application.properties")
 @RequestMapping("/images/")
@@ -45,4 +54,17 @@ public class ImagesController {
     public @ResponseBody String handleFileUpload(@RequestParam("file") MultipartFile file){
         return service.save(file);
     }
+
+	@RequestMapping(value="/putdb", method=RequestMethod.POST)
+	public @ResponseBody String saveInDb(@RequestParam("file") MultipartFile file){
+		return service.saveInDB(file);
+	}
+
+	@ResponseBody
+	@RequestMapping(value="/getdb/{id}", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
+	public byte[] getdb(@PathVariable(value="id") String id) throws IOException {
+		byte[] image = service.getImageFromDB(id);
+		return (image==null)?service.generateImage(id):image;
+	}
+
 }

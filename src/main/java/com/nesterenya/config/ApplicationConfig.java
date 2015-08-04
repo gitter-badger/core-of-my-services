@@ -2,8 +2,12 @@ package com.nesterenya.config;
 
 import static org.springframework.context.annotation.ComponentScan.Filter;
 
+import com.mongodb.DB;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.gridfs.GridFS;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +51,21 @@ class ApplicationConfig {
 	    multipartResolver.setDefaultEncoding("utf-8");
 	    multipartResolver.setMaxUploadSize(2*1024*1024);
 	    return multipartResolver;
+	}
+
+	@Bean
+	public GridFS imagesStore() {
+		String dbUri = env.getProperty("db.uri");
+		String dbName = env.getProperty("db.database");
+		MongoClientURI uri = new MongoClientURI(dbUri);
+		MongoClient mongoClient = new MongoClient(uri);
+
+		 DB db = mongoClient.getDB(dbName);
+
+		 //MongoCollection collection = db.getCollection("images");
+		GridFS gridFS = new GridFS(db);
+
+		return gridFS;
 	}
 
 	@Bean
