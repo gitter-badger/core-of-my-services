@@ -18,8 +18,6 @@
 
 * Method GET: ```http://services.nesterenya.com/ads/rent/all``` - вернет тестовый набор из трех заметок
 
-* Method GET: ```http://services.nesterenya.com/ads/rent/test_parsed```- распарсит сайт и вернет последних 10 заметок (пока их никуда не сохраняет, поэтому работает не быстро)
-
 * Method GET: ```http://services.nesterenya.com/ads/one/{id}``` - вернуть одну заметку по id
 
 * Method GET ```http://services.nesterenya.com/ads/rent/count/{количество карточек на странице}``` - вернет количество страниц с объявлениями

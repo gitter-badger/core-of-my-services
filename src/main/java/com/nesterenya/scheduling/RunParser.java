@@ -10,13 +10,22 @@ import com.nesterenya.parsers.GohomeParser;
 import com.nesterenya.parsers.ParsedResult;
 import com.nesterenya.services.ImageService;
 import com.nesterenya.services.TempStorage;
+import org.mongodb.morphia.Datastore;
+import org.mongodb.morphia.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 @Component
 public class RunParser {
+
+    @Autowired
+    private Datastore storage;
+
+    @Autowired
+    ImageService imageService;
 
     private Logger log = LoggerFactory.getLogger(RunParser.class);
 
@@ -39,13 +48,16 @@ public class RunParser {
             }
         });
 
-        for(Ad ad : TempStorage.ads) {
+
+        Query<Ad> query = storage.createQuery(Ad.class).field("source").equal(GohomeParser.BASE_URL);
+
+        for(Ad ad : query.asList()) {
             if(GohomeParser.BASE_URL.equals(ad.getSource())) {
                 ads.add(ad);
             }
         }
 
-        ImageService imageService = new ImageService();
+
         GohomeParser gohomeParser = new GohomeParser();
 
         ParsedResult result = gohomeParser.parse();
@@ -56,12 +68,16 @@ public class RunParser {
                 //save images {
                 List<String> idInStorage = new ArrayList<>();
                 for(String idImage : ad.getImages()) {
-                    String newId = imageService.save(result.getImages().get(idImage));
-                    idInStorage.add(newId);
-                }
 
+                    byte[] img = result.getImages().get(idImage);
+                    if(img != null) {
+                        String newId = imageService.save(img);
+                        idInStorage.add(newId);
+                    }
+                }
                 ad.setImages(idInStorage);
-                TempStorage.ads.add(ad);
+
+                storage.save(ad);
             }
         }
 

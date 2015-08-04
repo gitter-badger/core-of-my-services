@@ -53,7 +53,6 @@ public class GohomeParser implements Parser {
 	        for(String link: links) {
 	           try {
 	        	Ad ad = parseAd(Jsoup.connect(BASE_URL+link).get(), result);
-
 				result.getAds().add(ad);
 
 			   } catch(Exception e) {
@@ -95,8 +94,8 @@ public class GohomeParser implements Parser {
 
 						String newId = ObjectId.get().toHexString();
 						result.getImages().put(newId, ImageService.imageToBytes(new URL(BASE_URL+link)) );
-
 						idImages.add( newId );
+
 					} catch (MalformedURLException e) {
 						log.error("Image parse +" + link, e);
 					}

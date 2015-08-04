@@ -55,16 +55,4 @@ public class ImagesController {
         return service.save(file);
     }
 
-	@RequestMapping(value="/putdb", method=RequestMethod.POST)
-	public @ResponseBody String saveInDb(@RequestParam("file") MultipartFile file){
-		return service.saveInDB(file);
-	}
-
-	@ResponseBody
-	@RequestMapping(value="/getdb/{id}", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
-	public byte[] getdb(@PathVariable(value="id") String id) throws IOException {
-		byte[] image = service.getImageFromDB(id);
-		return (image==null)?service.generateImage(id):image;
-	}
-
 }

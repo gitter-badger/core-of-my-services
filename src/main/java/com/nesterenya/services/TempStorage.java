@@ -7,6 +7,6 @@ import java.util.List;
 
 public class TempStorage {
 
-    public final static List<Ad> ads = new ArrayList<>();
+    //public final static List<Ad> ads = new ArrayList<>();
 
 }

@@ -10,8 +10,10 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.nesterenya.helpers.ObjectIdDeserializer;
 import com.nesterenya.helpers.ObjectIdSerializer;
 import org.bson.types.ObjectId;
+import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 
+@Entity("ads")
 public class Ad {
 
 	@JsonDeserialize(using = ObjectIdDeserializer.class)
