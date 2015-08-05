@@ -36,7 +36,7 @@ public class RunParser {
         System.out.println("The time is now " + dateFormat.format(new Date()));
     }
 
-    @Scheduled(initialDelay=5000, fixedRate=1000*60*5)
+    @Scheduled(initialDelay=5000, fixedRate=1000*60*60)
     public void parseDataFrom() {
 
         log.info("Parsing start at : " + dateFormat.format(new Date()));

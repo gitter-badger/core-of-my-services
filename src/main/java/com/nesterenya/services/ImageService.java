@@ -5,8 +5,6 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
@@ -41,47 +39,28 @@ public class ImageService {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ImageIO.write(image, "jpg", baos);
         baos.flush();
-        byte[] imageInByte = baos.toByteArray();
-        return imageInByte;
+        return baos.toByteArray();
     }
-
 
 
     public String save(byte[] imageInByte) {
-
         ImageEntity entity = dbSave(imageInByte);
-
         return entity.getId().toHexString();
     }
 
-    public String save(URL url) {
-        // URL url = new URL("http://www.avajava.com/images/avajavalogo.jpg");
-        try {
+    public String save(URL url) throws IOException {
             byte[] imageInByte = ImageService.imageToBytes(url);
-
             ImageEntity entity = dbSave(imageInByte);
-
             return entity.getId().toHexString();
-
-        } catch (Exception e) {
-            // TODO correct log
-            return "Error saving photo from url";
-        }
-
     }
 
-    public String save(MultipartFile file) {
+    public String save(MultipartFile file) throws Exception {
         if (!file.isEmpty()) {
-            try {
-                byte[] bytes = file.getBytes();
-                ImageEntity entity = dbSave(bytes);
-
-                return entity.getId().toHexString();
-            } catch (Exception e) {
-                return "You failed to upload " + " => " + e.getMessage();
-            }
+            byte[] bytes = file.getBytes();
+            ImageEntity entity = dbSave(bytes);
+            return entity.getId().toHexString();
         } else {
-            return "You failed to upload " + " because the file was empty.";
+            throw new Exception("You failed to upload \" + \" because the file was empty.");
         }
     }
 
@@ -91,24 +70,6 @@ public class ImageService {
         storage.save(entity);
 
         return entity;
-    }
-
-    // TODO test method
-    public String saveInDB(MultipartFile file) {
-        if (!file.isEmpty()) {
-            try {
-
-                byte[] bytes = file.getBytes();
-
-                ImageEntity entity = dbSave(bytes);
-                return entity.getId().toHexString();
-
-            } catch (Exception e) {
-                return "You failed to upload " + " => " + e.getMessage();
-            }
-        } else {
-            return "You failed to upload " + " because the file was empty.";
-        }
     }
 
     public byte[] generateImage(String id) {

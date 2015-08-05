@@ -4,7 +4,9 @@ import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -50,9 +52,22 @@ public class ImagesController {
         return "You can upload a file by posting to this same URL.";
     }
 
-    @RequestMapping(value="/upload", method=RequestMethod.POST)
-    public @ResponseBody String handleFileUpload(@RequestParam("file") MultipartFile file){
-        return service.save(file);
+    @RequestMapping(value="/upload", method=RequestMethod.POST, produces = "application/json")
+    public @ResponseBody
+	ResponseEntity<String> handleFileUpload(@RequestParam("file") MultipartFile file){
+
+		String answerPattern = "{\"status\":\"%s\", \"result\":\"%s\"}";
+		String json;
+		try {
+			String id = service.save(file);
+			json = String.format(answerPattern, "OK", id);
+		} catch (Exception ex) {
+			json = String.format(answerPattern, "ERROR", ex.getMessage());
+			ex.printStackTrace();
+		}
+
+		return new ResponseEntity<String>(json, HttpStatus.OK);
+
     }
 
 }
