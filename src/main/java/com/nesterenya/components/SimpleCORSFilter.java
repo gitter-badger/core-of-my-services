@@ -55,7 +55,6 @@ public class SimpleCORSFilter implements Filter {
     HttpServletRequest request = (HttpServletRequest) req;
     HttpServletResponse response = (HttpServletResponse) res;
 
-    System.out.println(">>>>" + request.getHeader("Origin")+  " "+request.getMethod() );
     String vl = request.getHeader("Origin");
 
     response.setHeader("Access-Control-Allow-Credentials", "true");
