@@ -25,15 +25,10 @@ public class GohomeParser implements Parser {
 	final public static String BASE_URL = "http://gohome.by";
 	final static String SEARCH_URL = "http://gohome.by/rent/flat/gomel";
 	
-	
-	//ImageService imageService =new ImageService();
-	//private static List<Ad> cachedAds;
-	
+
 	@Override
 	public ParsedResult parse() {
-		//if(cachedAds!=null&&cachedAds.size()!=0)
-		//	return cachedAds;
-		
+
 		ParsedResult result = new ParsedResult();
 		try {
 			
@@ -59,21 +54,16 @@ public class GohomeParser implements Parser {
 	        	   log.error("Gohome parse ad: "+ link,e);
 	           }
 	        }
-		
-	        //if(ads.size()!=0)
-	        //	cachedAds= ads;
-	        
+
 		} catch( Exception e) {
 			log.error("Gohome connect error: ",e);
 		}
 		
-		
-//		return cachedAds;
 		return result;
 	}
 	
 	
-	 private  Ad parseAd(Document adDoc, ParsedResult result) throws ParseException, IOException {
+	 private  Ad parseAd(Document adDoc, ParsedResult result) throws Exception {
 
 	        //Element content = adDoc.getElementById("content");
 	        Element adElement = adDoc.getElementById("new_ad");
@@ -83,6 +73,7 @@ public class GohomeParser implements Parser {
 	        Ad ad = new Ad();
 	        ad.setDate(parseDate(bb));
 	        ad.setViews(parseViews(bb));
+
 
 	        // images
 	        Element imagesBlock = adElement.getElementsByClass("block_images").first();

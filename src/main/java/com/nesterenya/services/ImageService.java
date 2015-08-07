@@ -48,7 +48,7 @@ public class ImageService {
         return entity.getId().toHexString();
     }
 
-    public String save(URL url) throws IOException {
+    public String save(URL url) throws Exception {
             byte[] imageInByte = ImageService.imageToBytes(url);
             ImageEntity entity = dbSave(imageInByte);
             return entity.getId().toHexString();
@@ -60,7 +60,7 @@ public class ImageService {
             ImageEntity entity = dbSave(bytes);
             return entity.getId().toHexString();
         } else {
-            throw new Exception("You failed to upload \" + \" because the file was empty.");
+            throw new Exception("You failed to upload " + " because the file was empty.");
         }
     }
 

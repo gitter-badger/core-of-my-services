@@ -2,10 +2,7 @@ package com.nesterenya.config;
 
 import java.util.EnumSet;
 
-import javax.servlet.DispatcherType;
-import javax.servlet.Filter;
-import javax.servlet.FilterRegistration;
-import javax.servlet.ServletContext;
+import javax.servlet.*;
 
 import org.springframework.core.Conventions;
 import org.springframework.web.filter.CharacterEncodingFilter;
@@ -15,6 +12,25 @@ import com.nesterenya.components.SimpleCORSFilter;
 
 public class WebAppInitializer extends
 		AbstractAnnotationConfigDispatcherServletInitializer {
+
+	@Override
+	public void onStartup(ServletContext servletContext) throws ServletException {
+		servletContext.addFilter("cors",SimpleCORSFilter.class)
+				.addMappingForUrlPatterns(null, false,
+						"/*"
+						/*"/journey/places/*",
+						"/blog/comments/*",
+						"/ads/rent/*",
+						"/wish/*",
+						"/upload/*",
+						"/links/*",
+						"/rent/*",
+						"/images/*",
+						"/resource/*"*/
+						);
+
+		super.onStartup(servletContext);
+	}
 
 	@Override
 	protected String[] getServletMappings() {
@@ -36,6 +52,7 @@ public class WebAppInitializer extends
 		CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
 		characterEncodingFilter.setEncoding("UTF-8");
 		characterEncodingFilter.setForceEncoding(true);
+
 		return new Filter[] { characterEncodingFilter };
 	}
 }

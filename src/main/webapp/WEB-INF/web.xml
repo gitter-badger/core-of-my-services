@@ -7,23 +7,6 @@
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
 
-
-	<filter>
-        <filter-name>cors</filter-name>
-        <filter-class>com.nesterenya.components.SimpleCORSFilter</filter-class>
-    </filter>
-
-    <filter-mapping>
-        <filter-name>cors</filter-name>
-        <url-pattern>/journey/places/*</url-pattern>
-        <url-pattern>/blog/comments/*</url-pattern>
-        <url-pattern>/ads/rent/*</url-pattern>
-        <url-pattern>/wish/*</url-pattern>
-        <url-pattern>/upload/*</url-pattern>
-        <url-pattern>/links/*</url-pattern>
-        <url-pattern>/rent/*</url-pattern>
-        <url-pattern>/images/*</url-pattern>
-    </filter-mapping>
     
     <!-- Uncomment to Enable Spring XML configuration
     

@@ -12,10 +12,7 @@ import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -25,6 +22,8 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import com.nesterenya.Application;
 import com.nesterenya.scheduling.RunParser;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import java.util.Date;
 
@@ -32,6 +31,7 @@ import java.util.Date;
 @EnableScheduling
 @ComponentScan(basePackageClasses = Application.class, excludeFilters = @Filter({Controller.class, Configuration.class}))
 @PropertySource("classpath:mongodb_nocommit.properties")
+@Import({ SecurityConfig.class })
 class ApplicationConfig {
 
 	@Autowired
@@ -86,9 +86,5 @@ class ApplicationConfig {
 
 		return storage;
 	}
-	
-	/*@Bean
-	public RunParser task() {
-		return new RunParser();
-	}*/
+
 }
