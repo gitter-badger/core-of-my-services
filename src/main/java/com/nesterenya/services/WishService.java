@@ -10,9 +10,6 @@ import org.mongodb.morphia.query.UpdateOperations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientURI;
-import com.nesterenya.config.MongoConnectionConfig;
 import com.nesterenya.modal.Wish;
 
 @Component

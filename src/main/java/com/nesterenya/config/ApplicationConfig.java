@@ -40,8 +40,6 @@ class ApplicationConfig {
 	@Bean
 	public static PropertyPlaceholderConfigurer propertyPlaceholderConfigurer() {
 		PropertyPlaceholderConfigurer ppc = new PropertyPlaceholderConfigurer();
-		ppc.setLocation(new ClassPathResource("/mongodb_nocommit.properties"));	
-		//ppc.setLocation(new ClassPathResource("/mongodb.properties"));
 		return ppc;
 	}
 	
@@ -66,6 +64,18 @@ class ApplicationConfig {
 		GridFS gridFS = new GridFS(db);
 
 		return gridFS;
+	}
+
+	@Bean
+	public MongoDatabase mongoDatabase() {
+		String dbUri = env.getProperty("db.uri");
+		String dbName = env.getProperty("db.database");
+
+		MongoClientURI uri = new MongoClientURI(dbUri);
+		MongoClient mongoClient = new MongoClient(uri);
+		MongoDatabase db = mongoClient.getDatabase(dbName);
+
+		return db;
 	}
 
 	@Bean

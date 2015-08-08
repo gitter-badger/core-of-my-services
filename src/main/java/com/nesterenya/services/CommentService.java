@@ -1,41 +1,25 @@
 package com.nesterenya.services;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.bson.Document;
-import org.bson.types.ObjectId;
-import org.mongodb.morphia.Datastore;
-import org.mongodb.morphia.Morphia;
-import org.mongodb.morphia.query.Query;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import com.mongodb.BasicDBList;
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.UpdateOptions;
-import com.mongodb.client.result.UpdateResult;
-import com.nesterenya.config.MongoConnectionConfig;
-import com.nesterenya.modal.Castle;
 import com.nesterenya.modal.Comment;
+import org.bson.Document;
+import org.bson.types.ObjectId;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class CommentService {
 
-	MongoDatabase commentsDB;
-
 	@Autowired
-	public CommentService(MongoConnectionConfig config) {
-		MongoClientURI uri = new MongoClientURI(config.getConnectionURI());
-		MongoClient mongoClient = new MongoClient(uri);
-		commentsDB = mongoClient.getDatabase(config.getDataBase());
-	}
+	MongoDatabase mongoDatabase;
 
 	public void push(String id, Comment comment) {
-		MongoCollection<Document> commentCollection = commentsDB
+		MongoCollection<Document> commentCollection = mongoDatabase
 				.getCollection("posts");
 		
 		Document document = new Document();
@@ -48,7 +32,7 @@ public class CommentService {
 	}
 
 	public String create() {
-		MongoCollection<Document> commentCollection = commentsDB
+		MongoCollection<Document> commentCollection = mongoDatabase
 				.getCollection("posts");
 		
 		Document document = new Document();
@@ -62,7 +46,7 @@ public class CommentService {
 	
 	@SuppressWarnings("unchecked")
 	public List<Comment> get(String id) {
-		MongoCollection<Document> commentCollection = commentsDB
+		MongoCollection<Document> commentCollection = mongoDatabase
 				.getCollection("posts");
 		List<Comment> comments = new ArrayList<Comment>();
 		Document query = new Document();
