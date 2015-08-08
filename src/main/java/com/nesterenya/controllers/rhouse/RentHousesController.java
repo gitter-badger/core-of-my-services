@@ -13,7 +13,7 @@ import com.nesterenya.modal.Wish;
 import com.nesterenya.services.RentService;
 
 @RestController
-@RequestMapping(value={"/ads/rent", "/rent"})
+@RequestMapping(value={"/rent"})
 public class RentHousesController {
 	private Logger log = LoggerFactory.getLogger(RentHousesController.class); 
 	
