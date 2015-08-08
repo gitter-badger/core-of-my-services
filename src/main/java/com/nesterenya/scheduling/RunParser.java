@@ -9,7 +9,6 @@ import com.nesterenya.modal.Ad;
 import com.nesterenya.parsers.GohomeParser;
 import com.nesterenya.parsers.ParsedResult;
 import com.nesterenya.services.ImageService;
-import com.nesterenya.services.TempStorage;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.query.Query;
 import org.slf4j.Logger;

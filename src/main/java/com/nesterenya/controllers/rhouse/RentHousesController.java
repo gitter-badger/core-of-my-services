@@ -68,4 +68,11 @@ public class RentHousesController {
 	public List<Ad> get(@PathVariable(value="cardOnPage") int cardOnPage, @PathVariable(value="pageNumber") int pageNumber ) {
 		return service.getPage(pageNumber, cardOnPage);
 	}
+
+	@RequestMapping(value = "/view/{id}", method = RequestMethod.POST)
+	public void view(@PathVariable(value="id") String id) {
+		service.addView(id);
+	}
+
+
 }

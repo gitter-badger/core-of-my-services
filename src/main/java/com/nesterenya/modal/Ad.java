@@ -29,11 +29,11 @@ public class Ad {
 	private String source;
 	private List<String> images;
 	private int views;
-	
+
 	{
 		images = new ArrayList<String>();
 	}
-	
+
 	public Ad() {
 		this.id = ObjectId.get();
 	}	

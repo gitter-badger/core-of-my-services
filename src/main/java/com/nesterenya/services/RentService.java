@@ -7,7 +7,11 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
+import com.nesterenya.modal.Wish;
+import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
+import org.mongodb.morphia.query.Query;
+import org.mongodb.morphia.query.UpdateOperations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,13 +90,17 @@ public class RentService {
 	}
 
 	public void addView(String id) {
-
-
-
+		ObjectId oid = new ObjectId(id);
+		UpdateOperations<Ad> ops = storage.createUpdateOperations(Ad.class).inc("views",1);
+		Query<Ad> updateQuery = storage.createQuery(Ad.class).field("_id").equal(oid);
+		storage.update(updateQuery, ops);
 	}
 
 	public Ad add(Ad ad) {
-		// TODO remove
+
+		if(ad.getImages()==null)
+			ad.setImages(new ArrayList<String>());
+
 		storage.save(ad);
 		return ad;
 	}
