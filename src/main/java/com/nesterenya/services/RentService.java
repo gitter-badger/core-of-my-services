@@ -7,9 +7,11 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
+import com.nesterenya.authorization.Account;
 import com.nesterenya.modal.Wish;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
+import org.mongodb.morphia.Key;
 import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.UpdateOperations;
 import org.slf4j.Logger;
@@ -21,6 +23,8 @@ import com.nesterenya.modal.Ad;
 
 @Component
 public class RentService {
+
+	final int DEFAULT_CARD_OF_PAGE = 5;
 
 	// TODO добавить DAO
 	private Logger log = LoggerFactory.getLogger(RentService.class);
@@ -37,56 +41,29 @@ public class RentService {
 		return ads;
 	}
 
-	final int DEFAULT_CARD_OF_PAGE = 5;
+
 	public int getCountPages(int cardOnPage) {
 		if(cardOnPage<=0)
 			cardOnPage = DEFAULT_CARD_OF_PAGE;
-
-		double fullSize = getAllAds().size();
-
+		double fullSize = storage.getCount(Ad.class);;
 		return (int) Math.ceil(fullSize/cardOnPage);
 	}
 	
 	public Ad get(String id) {
-		List<Ad> ads = getAllAds();
-
-		for(Ad ad : ads) {
-			if(ad.getIdHex().equals(id)) {
-				return ad;
-			}
-		}
-		return null;
+		ObjectId key = new ObjectId(id);
+		Ad one = storage.get(Ad.class, id);
+		return one;
 	}
 	
 	public List<Ad> getPage(int pageNumber, int cardOnPage) {
-		// TODO warning
 		if(cardOnPage<=0)
 			cardOnPage = DEFAULT_CARD_OF_PAGE;
 
-		List<Ad> ads = getAllAds();
-
-		Collections.sort(ads, new Comparator<Ad>() {
-			@Override
-			public int compare(Ad o1, Ad o2) {
-				if(o1.getDate()!=null)
-					return -o1.getDate().compareTo(o2.getDate());
-				else 
-					return 0;
-			}
-		});
-		
-		List<Ad> pageList = new ArrayList<Ad>();
-		
 		int first = (pageNumber-1)*cardOnPage;
-		
-		if(first<0)
-			first = 0;
-		
-		for(int i = first; i < first+cardOnPage&&i<ads.size(); i++) {
-			pageList.add(ads.get(i));
-		}
-		
-		return pageList;
+		if(first<0) { first = 0; }
+
+		Query<Ad> query = storage.createQuery(Ad.class).order("-date").offset(first).limit(cardOnPage);
+		return query.asList();
 	}
 
 	public void addView(String id) {
@@ -100,7 +77,6 @@ public class RentService {
 
 		if(ad.getImages()==null)
 			ad.setImages(new ArrayList<String>());
-
 		storage.save(ad);
 		return ad;
 	}
