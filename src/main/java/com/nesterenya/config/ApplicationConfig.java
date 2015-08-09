@@ -17,6 +17,8 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.config.Task;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
@@ -49,6 +51,11 @@ class ApplicationConfig {
 	    multipartResolver.setDefaultEncoding("utf-8");
 	    multipartResolver.setMaxUploadSize(2*1024*1024);
 	    return multipartResolver;
+	}
+
+	@Bean(name = "passwordEncoder")
+	public PasswordEncoder passwordEncoder() {
+		return new StandardPasswordEncoder();
 	}
 
 	@Bean
@@ -90,9 +97,11 @@ class ApplicationConfig {
 		// tell Morphia where to find your classes
 		// can be called multiple times with different packages or classes
 		morphia.mapPackage("org.mongodb.morphia.example");
+		morphia.mapPackage("com.nesterenya.authorization.Account");
 
 		Datastore storage = morphia.createDatastore(mongoClient, dbName);
 		storage.ensureIndexes();
+		storage.ensureIndexes(com.nesterenya.authorization.Account.class);
 
 		return storage;
 	}
