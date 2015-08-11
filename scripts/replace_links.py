@@ -6,11 +6,11 @@ folder = os.path.join('D:\\', 'Git', 'CommonProjects', 'rhouse', 'app')
 files = os.listdir(folder)
 
 
-
-import fileinput
-
-for line in fileinput.input(fileToSearch, inplace=True):
-    print(line.replace(textToSearch, textToReplace), end='')
-
+#
+# import fileinput
+#
+# for line in fileinput.input(fileToSearch, inplace=True):
+#     print(line.replace(textToSearch, textToReplace), end='')
+#
 
 

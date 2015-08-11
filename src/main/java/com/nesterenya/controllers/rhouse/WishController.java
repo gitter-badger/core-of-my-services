@@ -26,7 +26,7 @@ public class WishController {
 	}
 	
 	//ResponseEntity<String>(HttpStatus.BAD_REQUEST);
-	@ExceptionHandler(UnknownMatchException.class)
+	//@ExceptionHandler(UnknownMatchException.class)
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public Wish put(@RequestBody Wish wish) {
 		
