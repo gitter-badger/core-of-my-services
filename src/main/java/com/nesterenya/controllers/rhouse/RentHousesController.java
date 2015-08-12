@@ -65,8 +65,12 @@ public class RentHousesController {
 	}
 	
 	@RequestMapping(value = "/get/{cardOnPage}/{pageNumber}", method = RequestMethod.GET)
-	public List<Ad> get(@PathVariable(value="cardOnPage") int cardOnPage, @PathVariable(value="pageNumber") int pageNumber ) {
-		return service.getPage(pageNumber, cardOnPage);
+	public List<Ad> get(
+			@PathVariable(value="cardOnPage") int cardOnPage,
+			@PathVariable(value="pageNumber") int pageNumber,
+			@RequestParam(value="sortBy", defaultValue="-date") String sortBy) {
+
+		return service.getPage(pageNumber, cardOnPage, sortBy);
 	}
 
 	@RequestMapping(value = "/view/{id}", method = RequestMethod.POST)

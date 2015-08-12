@@ -25,6 +25,7 @@ import com.nesterenya.modal.Ad;
 public class RentService {
 
 	final int DEFAULT_CARD_OF_PAGE = 5;
+	final String DEFAULT_SORT_CRITERIA = "-date";
 
 	// TODO добавить DAO
 	private Logger log = LoggerFactory.getLogger(RentService.class);
@@ -51,18 +52,33 @@ public class RentService {
 	
 	public Ad get(String id) {
 		ObjectId key = new ObjectId(id);
-		Ad one = storage.get(Ad.class, id);
+		Ad one = storage.get(Ad.class, key);
 		return one;
 	}
+
+	private boolean checkPossibleSortCriteria(String criteria) {
+		if(criteria!=null) {
+			String[] validCriteriaList = {"date", "-date", "roomCount", "-roomCount"};
+			for(String c : validCriteriaList) {
+				if(c.equals(criteria)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
 	
-	public List<Ad> getPage(int pageNumber, int cardOnPage) {
+	public List<Ad> getPage(int pageNumber, int cardOnPage, String sortCriteria) {
 		if(cardOnPage<=0)
 			cardOnPage = DEFAULT_CARD_OF_PAGE;
+
+		String sortC = (checkPossibleSortCriteria(sortCriteria))?sortCriteria:DEFAULT_SORT_CRITERIA;
 
 		int first = (pageNumber-1)*cardOnPage;
 		if(first<0) { first = 0; }
 
-		Query<Ad> query = storage.createQuery(Ad.class).order("-date").offset(first).limit(cardOnPage);
+		Query<Ad> query = storage.createQuery(Ad.class).order(sortC).offset(first).limit(cardOnPage);
 		return query.asList();
 	}
 
