@@ -4,6 +4,7 @@ import java.util.EnumSet;
 
 import javax.servlet.*;
 
+import com.nesterenya.components.CrawlServlet;
 import org.springframework.core.Conventions;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
@@ -28,6 +29,10 @@ public class WebAppInitializer extends
 						"/images/*",
 						"/resource/*"*/
 						);
+
+		// Enable AJAX snapshot
+		// servletContext.addFilter("crawl", CrawlServlet.class)
+		//		.addMappingForUrlPatterns(null, false, "/*");
 
 		super.onStartup(servletContext);
 	}

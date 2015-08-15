@@ -5,7 +5,7 @@ import sys
 # establish a connection to the database
 # connection = pymongo.MongoClient("mongodb://localhost")
 
-connection =  pymongo.MongoClient("mongodb://nester:nester42@ds059661.mongolab.com:59661/dataservices")
+connection =  pymongo.MongoClient("URI")
 
 db=connection.dataservices
 images = db.images
