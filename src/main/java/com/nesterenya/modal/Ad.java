@@ -29,6 +29,7 @@ public class Ad {
 	private String source;
 	private List<String> images;
 	private int views;
+	private int costValue;
 
 	{
 		images = new ArrayList<String>();
@@ -123,5 +124,14 @@ public class Ad {
 	public void setViews(int views) {
 		this.views = views;
 	}
-	
+
+	@JsonIgnore
+	public int getCostValue() {
+		return costValue;
+	}
+
+	@JsonIgnore
+	public void setCostValue(int costValue) {
+		this.costValue = costValue;
+	}
 }

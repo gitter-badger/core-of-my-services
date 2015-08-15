@@ -58,7 +58,7 @@ public class RentService {
 
 	private boolean checkPossibleSortCriteria(String criteria) {
 		if(criteria!=null) {
-			String[] validCriteriaList = {"date", "-date", "roomCount", "-roomCount"};
+			String[] validCriteriaList = {"date", "-date", "roomCount", "-roomCount", "cost", "-cost"};
 			for(String c : validCriteriaList) {
 				if(c.equals(criteria)) {
 					return true;
@@ -68,12 +68,21 @@ public class RentService {
 		return false;
 	}
 
+	private String normalizationCriteria(String criteria) {
+		String sortC = (checkPossibleSortCriteria(criteria))?criteria:DEFAULT_SORT_CRITERIA;
+
+		if(sortC.contains("cost")) {
+			sortC = sortC.replace("cost", "costValue");
+		}
+
+		return sortC;
+	}
 	
 	public List<Ad> getPage(int pageNumber, int cardOnPage, String sortCriteria) {
 		if(cardOnPage<=0)
 			cardOnPage = DEFAULT_CARD_OF_PAGE;
 
-		String sortC = (checkPossibleSortCriteria(sortCriteria))?sortCriteria:DEFAULT_SORT_CRITERIA;
+		String sortC = normalizationCriteria(sortCriteria);
 
 		int first = (pageNumber-1)*cardOnPage;
 		if(first<0) { first = 0; }
