@@ -1,7 +1,7 @@
 import pymongo
 import re
 
-connection = pymongo.MongoClient("mongodb://nester:nester42@ds059661.mongolab.com:59661/dataservices")
+connection = pymongo.MongoClient("URL")
 db = connection.dataservices
 ads = db.ads
 

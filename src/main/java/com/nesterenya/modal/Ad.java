@@ -3,6 +3,8 @@ package com.nesterenya.modal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -75,6 +77,33 @@ public class Ad {
 	}
 	public void setCost(String cost) {
 		this.cost = cost;
+
+		Pattern prog = Pattern.compile("^[\\D]+$");
+		int costValue = 0;
+		if ( prog.matcher(cost).matches() ) {
+			costValue = 99999999;
+		} else {
+			Pattern p = Pattern.compile("[\\d ]+");
+			Matcher matcher = p.matcher(cost);
+			matcher.find();
+			String m = matcher.group();
+
+			StringBuilder sb = new StringBuilder();
+			for (int i = 0; i < m.length(); i++) {
+				char ch = m.charAt(i);
+				if( Character.isDigit(  ch  )) {
+					sb.append(ch);
+				}
+			}
+			costValue = Integer.parseInt(sb.toString());
+			// TODO Remove magic number
+
+			if(costValue> 1000000) {
+				costValue = costValue/15000;
+			}
+
+			setCostValue(costValue);
+		}
 	}
 	public Date getDate() {
 		return date;
@@ -132,6 +161,7 @@ public class Ad {
 
 	@JsonIgnore
 	public void setCostValue(int costValue) {
+		System.out.println("check > " + costValue);
 		this.costValue = costValue;
 	}
 }
